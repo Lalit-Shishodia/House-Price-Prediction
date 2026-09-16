@@ -70,21 +70,30 @@ Build an end-to-end regression pipeline that:
 House-Price-Prediction/
 │
 ├── data/
-│   ├── train.csv
-│   └── test.csv
+│   ├── raw
+│   │     └── House_price.csv
+│   └── processed
 │
 ├── notebooks/
 │   └── EDA.ipynb
 │
 ├── src/
-│   ├── data_preprocessing.py
-│   ├── feature_engineering.py
-│   ├── train.py
-│   └── predict.py
+│   ├── config.py
+│   ├── data_ingestion.py
+│   ├── data_validation.py
+│   ├── eda.py
+│   ├── model_evaluation.py
+│   ├── model_tuning.py
+│   ├── predict.py
+│   ├── preprocessing.py
+│   └── train_models.py
+│   
+│
 │
 ├── models/
-│   └── model.pkl
-│
+│   └── best_housr_price_model.pkl
+│   └── final_house_price_model.pkl
+│    
 ├── app.py
 │
 ├── requirements.txt
