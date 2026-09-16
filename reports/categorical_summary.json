@@ -1,0 +1,31 @@
+{
+    "mainroad": {
+        "yes": 468,
+        "no": 77
+    },
+    "guestroom": {
+        "no": 448,
+        "yes": 97
+    },
+    "basement": {
+        "no": 354,
+        "yes": 191
+    },
+    "hotwaterheating": {
+        "no": 520,
+        "yes": 25
+    },
+    "airconditioning": {
+        "no": 373,
+        "yes": 172
+    },
+    "prefarea": {
+        "no": 417,
+        "yes": 128
+    },
+    "furnishingstatus": {
+        "semi-furnished": 227,
+        "unfurnished": 178,
+        "furnished": 140
+    }
+}

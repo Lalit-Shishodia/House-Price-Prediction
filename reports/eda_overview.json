@@ -1,0 +1,34 @@
+{
+    "rows": 545,
+    "columns": 13,
+    "column_names": [
+        "price",
+        "area",
+        "bedrooms",
+        "bathrooms",
+        "stories",
+        "mainroad",
+        "guestroom",
+        "basement",
+        "hotwaterheating",
+        "airconditioning",
+        "parking",
+        "prefarea",
+        "furnishingstatus"
+    ],
+    "data_types": {
+        "price": "int64",
+        "area": "int64",
+        "bedrooms": "int64",
+        "bathrooms": "int64",
+        "stories": "int64",
+        "mainroad": "str",
+        "guestroom": "str",
+        "basement": "str",
+        "hotwaterheating": "str",
+        "airconditioning": "str",
+        "parking": "int64",
+        "prefarea": "str",
+        "furnishingstatus": "str"
+    }
+}
