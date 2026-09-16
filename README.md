@@ -1,135 +1,586 @@
+# 🏠 House Price Prediction
 
+An end-to-end **Machine Learning project** that predicts house prices based on property characteristics such as area, bedrooms, bathrooms, location, and other relevant features.
 
-Project objective
+The project covers the complete machine learning workflow:
 
-Business problem: A real estate company wants to estimate house prices based on property characteristics.
+**Data → Exploration → Preprocessing → Feature Engineering → Model Training → Evaluation → Prediction → Streamlit Deployment**
 
- Input → Process → Output
+---
 
- INPUT -- House Features (Area • Bedrooms • Bathrooms • Location • Age • Parking)
+## 📌 Project Overview
 
- MACHINE LEARNING 
- Train & Compare Models ---> EDA → Feature Engineering → Training → Cross-Validation → Evaluation
+House prices depend on multiple factors including property size, number of rooms, location, amenities, and other property characteristics.
 
- OUTPUT
-Predicted House Price --> ₹ Estimated property value + model performance"""
+The objective of this project is to build a machine learning model that can learn relationships between these features and historical house prices, then use the trained model to predict prices for new properties.
 
-What you will learn
+### Business Problem
 
--- Regression fundamentals.
--- Data preprocessing and feature engineering.
--- Multiple ML model training.
--- Cross-validation and hyperparameter tuning.
--- Evaluation metrics and model selection.
--- MLflow experiment tracking.
--- FastAPI prediction API.
--- Docker deployment.
--- Model monitoring and retraining.
+> How can historical housing data be used to estimate the expected selling price of a property?
 
+### Solution
 
-Project Structure
+Build an end-to-end regression pipeline that:
 
-house_price_prediction/
+1. Loads the housing dataset
+2. Performs data quality checks
+3. Performs Exploratory Data Analysis
+4. Handles missing values and categorical variables
+5. Performs feature engineering
+6. Trains multiple regression models
+7. Evaluates model performance
+8. Selects the appropriate model
+9. Saves the trained model
+10. Provides predictions through a Streamlit web application
+
+---
+
+# 🎯 Objectives
+
+* Understand the factors affecting house prices
+* Perform data cleaning and preprocessing
+* Analyze relationships between features and house prices
+* Build regression models
+* Compare model performance
+* Optimize the selected model
+* Create a reusable prediction pipeline
+* Deploy the model using Streamlit
+* Provide an interactive interface for house price prediction
+
+---
+
+# 🛠️ Technology Stack
+
+| Category             | Tools                      |
+| -------------------- | -------------------------- |
+| Programming Language | Python                     |
+| Data Manipulation    | Pandas, NumPy              |
+| Data Visualization   | Matplotlib, Seaborn        |
+| Machine Learning     | Scikit-learn               |
+| Model Persistence    | Joblib / Pickle            |
+| Web Application      | Streamlit                  |
+| Development          | Jupyter Notebook / VS Code |
+| Version Control      | Git & GitHub               |
+
+---
+
+# 📂 Project Structure
+
+```text
+House-Price-Prediction/
 │
 ├── data/
-│   ├── raw/
-│   │   └── house_prices.csv
-│   ├── processed/
-│   └── external/
+│   ├── train.csv
+│   └── test.csv
 │
 ├── notebooks/
-│   ├── 01_eda.ipynb
-│   ├── 02_feature_engineering.ipynb
-│   └── 03_model_comparison.ipynb
+│   └── EDA.ipynb
 │
 ├── src/
-│   ├── __init__.py
-│   ├── config.py
-│   ├── data_ingestion.py
-│   ├── data_validation.py
-│   ├── preprocessing.py
+│   ├── data_preprocessing.py
+│   ├── feature_engineering.py
 │   ├── train.py
-│   ├── evaluate.py
 │   └── predict.py
 │
 ├── models/
+│   └── model.pkl
 │
-├── reports/
-│   ├── figures/
-│   └── model_comparison.csv
-│
-├── tests/
-│   ├── test_data.py
-│   ├── test_preprocessing.py
-│   └── test_prediction.py
-│
-├── api/
-│   └── main.py
+├── app.py
 │
 ├── requirements.txt
-├── Dockerfile
-├── .gitignore
+│
 ├── README.md
-└── pyproject.toml
+│
+└── .gitignore
+```
 
-Dataset selection
+> Update the folder names if your actual project structure is different.
 
-For this project, we use a structured house-price dataset.
+---
 
-Which regression models should we compare?
+# 🔄 Machine Learning Workflow
 
-We will train at least 7 models.
+```text
+                ┌─────────────────┐
+                │   Raw Dataset   │
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │ Data Validation  │
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │ Data Cleaning    │
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │      EDA         │
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │Feature Engineering│
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │ Preprocessing    │
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │ Train/Test Split │
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │ Model Training   │
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │ Model Evaluation │
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │ Best Model       │
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │ Model Persistence│
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │ Streamlit App    │
+                └────────┬────────┘
+                         ↓
+                ┌─────────────────┐
+                │ Price Prediction │
+                └─────────────────┘
+```
 
-No.              Model                           Why use it?
+---
 
-1             Linear Regression               Baseline and interpretability
-2             Ridge Regression                Handles multicollinearity with regularization
-3             Lasso Regression                Feature selection through regularization
-4             Random Forest Regressor         Nonlinear relationships and robustness
-5             Gradient Boosting Regressor     Strong classical boosting model
-6             HistGradientBoosting            Efficient nonlinear boosting
-7             XGBoost / LightGBM              Advanced boosting for tabular data
+# 📊 Dataset
 
-Optional advanced models
+The dataset contains historical information about residential properties.
 
-CatBoost Regressor — especially useful for categorical features.
-Random Forest with tuned hyperparameters.
-XGBoost with tuned hyperparameters.
-Stacking Regressor — combine multiple models.
+Typical features may include:
 
+* Property area
+* Number of bedrooms
+* Number of bathrooms
+* Number of floors
+* Location
+* Property type
+* Parking availability
+* Furnishing status
+* Age of property
+* Other property characteristics
 
-Best evaluation metrics for house price prediction
+### Target Variable
 
-House price prediction is a regression problem, so we use regression evaluation metrics.
+```text
+Price
+```
 
-Metric comparison
-MAE ---> Mean Absolute Error
+The target variable represents the estimated/selling price of the property.
 
-Average absolute prediction error. Easy to explain to a real estate business.
-Example: MAE = ₹2,50,000 means the average absolute error is ₹2.5 lakh.
+> The exact features and target column depend on the dataset used in this project.
 
-RMSE ---> Root Mean Squared Error
-Penalizes large errors more heavily than MAE.
-Useful when expensive prediction mistakes matter.
+---
 
-R² Score
+# 🔍 Exploratory Data Analysis
 
-Coefficient of determination
-Measures how much variance in the target is explained relative to predicting the mean.
+The EDA phase focuses on understanding the dataset and identifying patterns.
 
-MAPE ---> Mean Absolute Percentage Error
-Gives percentage error, but can be misleading when actual prices are zero or very small.
+### Data Quality Analysis
 
+* Number of rows and columns
+* Data types
+* Missing values
+* Duplicate records
+* Unique values
+* Outliers
+* Numerical distributions
+* Categorical distributions
 
-Recommendation for this project
+### Statistical Analysis
 
-Use this metric strategy:
-Metric				Role								Direction
-MAE				Primary business metric					Lower is better
-RMSE			Penalize large mistakes					Lower is better
-R²				Explain variance						Higher is better
-MAPE / WAPE		Relative price accuracy					Lower is better
-Median AE		Robust error analysis					Lower is better
+```python
+df.describe()
+```
 
-For house price prediction, MAE + RMSE + R² are a strong starting set. Add MAPE or WAPE if percentage-based accuracy is useful for your business.
+The analysis helps understand:
 
+* Mean
+* Median
+* Standard deviation
+* Minimum
+* Maximum
+* Quartiles
+
+---
+
+# 📈 Data Visualization
+
+Important visualizations include:
+
+### Distribution of House Prices
+
+```text
+House Price
+    │
+    │       █
+    │     █ █
+    │   █ █ █
+    │ █ █ █ █
+    └──────────────
+       Price Range
+```
+
+### Correlation Analysis
+
+A correlation matrix can be used to identify relationships between numerical variables.
+
+### Feature vs Price Analysis
+
+Examples:
+
+* Area vs Price
+* Bedrooms vs Price
+* Bathrooms vs Price
+* Location vs Price
+* Property Age vs Price
+
+---
+
+# 🧹 Data Preprocessing
+
+The preprocessing pipeline may include:
+
+### Missing Value Treatment
+
+Numerical features:
+
+```python
+df[column].fillna(df[column].median())
+```
+
+Categorical features:
+
+```python
+df[column].fillna(df[column].mode()[0])
+```
+
+### Duplicate Removal
+
+```python
+df.drop_duplicates()
+```
+
+### Categorical Encoding
+
+Categorical variables can be converted into numerical representations using techniques such as:
+
+* One-Hot Encoding
+* Ordinal Encoding
+
+### Feature Scaling
+
+Depending on the selected algorithm, numerical features can be standardized using:
+
+```python
+StandardScaler()
+```
+
+---
+
+# 🧠 Machine Learning Models
+
+This project can compare multiple regression algorithms.
+
+### 1. Linear Regression
+
+```text
+Simple baseline regression model
+```
+
+### 2. Decision Tree Regressor
+
+Captures nonlinear relationships between features.
+
+### 3. Random Forest Regressor
+
+An ensemble of multiple decision trees designed to improve predictive performance and robustness.
+
+### 4. Gradient Boosting
+
+Builds models sequentially to reduce prediction errors.
+
+### 5. Other Models
+
+Depending on the dataset, additional algorithms can be evaluated, such as:
+
+* XGBoost
+* HistGradientBoostingRegressor
+* Random Forest
+* Extra Trees Regressor
+
+---
+
+# 📏 Model Evaluation
+
+Regression models can be evaluated using:
+
+### MAE — Mean Absolute Error
+
+```text
+MAE = Average(|Actual - Predicted|)
+```
+
+Lower MAE indicates smaller average prediction errors.
+
+### MSE — Mean Squared Error
+
+```text
+MSE = Average((Actual - Predicted)²)
+```
+
+### RMSE — Root Mean Squared Error
+
+```text
+RMSE = √MSE
+```
+
+RMSE gives greater weight to larger errors.
+
+### R² Score
+
+```text
+R² = 1 - SSres / SStotal
+```
+
+R² measures how much of the variation in the target variable is explained by the model.
+
+---
+
+# 📊 Model Comparison
+
+Example evaluation table:
+
+| Model             | MAE | RMSE | R² |
+| ----------------- | --: | ---: | -: |
+| Linear Regression |   — |    — |  — |
+| Decision Tree     |   — |    — |  — |
+| Random Forest     |   — |    — |  — |
+| Gradient Boosting |   — |    — |  — |
+| XGBoost           |   — |    — |  — |
+
+The final model should be selected based on the evaluation results and project requirements rather than assuming a particular algorithm will always perform best.
+
+---
+
+# 💾 Model Saving
+
+After selecting and training the final model, it can be saved using Joblib:
+
+```python
+import joblib
+
+joblib.dump(model, "models/model.pkl")
+```
+
+The saved model can then be loaded by the prediction application:
+
+```python
+model = joblib.load("models/model.pkl")
+```
+
+---
+
+# 🌐 Streamlit Application
+
+The project includes a Streamlit application that allows users to enter property information and receive a predicted house price.
+
+### Application Workflow
+
+```text
+User Input
+    ↓
+Input Validation
+    ↓
+Preprocessing
+    ↓
+Trained ML Model
+    ↓
+Prediction
+    ↓
+Estimated House Price
+```
+
+Run the application with:
+
+```bash
+streamlit run app.py
+```
+
+The application provides an interactive interface for:
+
+* Entering property features
+* Submitting prediction requests
+* Viewing the predicted house price
+
+---
+
+# ⚙️ Installation
+
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/Lalit-Shishodia/House-Price-Prediction.git
+```
+
+## 2. Navigate to the project
+
+```bash
+cd House-Price-Prediction
+```
+
+## 3. Create a virtual environment
+
+```bash
+python -m venv .venv
+```
+
+## 4. Activate the environment
+
+### Windows PowerShell
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+### Windows CMD
+
+```cmd
+.venv\Scripts\activate
+```
+
+---
+
+# 📦 Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+If `requirements.txt` has not been created yet:
+
+```bash
+pip freeze > requirements.txt
+```
+
+---
+
+# ▶️ Run the Project
+
+### Run the Streamlit application
+
+```bash
+streamlit run app.py
+```
+
+### Run training
+
+If your project has a training script:
+
+```bash
+python src/train.py
+```
+
+---
+
+# 🔮 Example Prediction
+
+Example input:
+
+```text
+Area          : 1500 sq ft
+Bedrooms      : 3
+Bathrooms     : 2
+Location      : Hapur
+Property Type : Apartment
+```
+
+The application processes the input and returns an estimated property price.
+
+---
+
+# 📌 Key Learnings
+
+Through this project, the following Data Science concepts are demonstrated:
+
+* Python programming
+* NumPy
+* Pandas
+* Data cleaning
+* Exploratory Data Analysis
+* Statistical analysis
+* Feature engineering
+* Categorical encoding
+* Feature scaling
+* Regression algorithms
+* Model evaluation
+* Hyperparameter tuning
+* Model serialization
+* Prediction pipelines
+* Streamlit deployment
+* Git and GitHub
+
+---
+
+# 🚀 Future Improvements
+
+Potential improvements include:
+
+* Hyperparameter optimization
+* Cross-validation
+* Feature selection
+* Advanced ensemble models
+* XGBoost/LightGBM experimentation
+* Model explainability using SHAP
+* MLflow experiment tracking
+* Docker deployment
+* Cloud deployment
+* Automated CI/CD
+* Real-time property data integration
+* Location-based feature engineering
+
+---
+
+# 💼 Project Use Case
+
+This project demonstrates how Machine Learning can be used to support:
+
+* Real-estate price estimation
+* Property valuation
+* Buyer decision support
+* Real-estate analytics
+* Market analysis
+* Property investment analysis
+
+The prediction should be treated as a model-based estimate and not as a guaranteed market valuation.
+
+---
+
+# 👨‍💻 Author
+
+**Lalit Shishodia**
+
+Aspiring Data Scientist / ML Engineer
+
+**Skills:** Python • SQL • Power BI • Pandas • NumPy • Machine Learning • Data Analysis • Streamlit
+
+---
+
+# ⭐ If You Find This Project Useful
+
+Feel free to explore the repository, experiment with the model, and improve the project with additional features and algorithms.
+
+**Learn • Build • Analyze • Innovate**
